@@ -16,9 +16,25 @@ public class ShopController {
             if (item.getAgeRestriction() > human.getAge()) {
                 throw new TooYoungException();
             }
+            else if (human.getMoney() < item.getPrice()){
+                throw new NotEnaughMoneyException();
+            }
+            else if (human.getJob().equals("Policjant") && !item.isLegal()){
+                throw new BagietaException();
+            }
+            else {
+                human.setMoney(human.getMoney()-item.getPrice());
+                shop.addMoney(item.getPrice());
+                shop.getStock().replace(item,shop.getStock().get(item)-1);
+                if (shop.getStock().get(item) == 0){
+                    shop.getStock().remove(item);
+                }
+                shop.playCashSound();
+
+            }
 
         } else {
-            // TODO sklep nie ma danego przedmiotu, wyrzuć wyjątek OutOfStockException
+            throw new OutOfStockException();
         }
 
     }

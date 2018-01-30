@@ -38,4 +38,11 @@ public class Human {
     public void setMoney(int money) {
         this.money = money;
     }
+
+    public Human(String name, int age, String job, int money) {
+        this.name = name;
+        this.age = age;
+        this.job = job;
+        this.money = money;
+    }
 }
